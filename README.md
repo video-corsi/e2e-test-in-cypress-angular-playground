@@ -14,7 +14,7 @@ npm start
 
 ### Run Cypress
 
-• Run Cypress UI and select `playground.cy.ts` to test the application. 
+• Run Cypress UI, select "E2E Testing" and choose `playground.cy.ts` to run the default test. 
 
 ```bash
 npm run e2e
