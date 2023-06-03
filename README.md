@@ -20,7 +20,9 @@ npm start
 npm run e2e
 ```
 
-• 
+### How to write a test
+
+Update `AppComponent` and write your tests in `playground.cy.ts`
 
 
 
