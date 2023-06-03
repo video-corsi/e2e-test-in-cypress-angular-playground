@@ -14,7 +14,7 @@ npm start
 
 ### Run Cypress
 
-• Run Cypress UI and select the `playground.cy.ts` test to test the application root component `app.component.*`. 
+• Run Cypress UI and select `playground.cy.ts` to test the application. 
 
 ```bash
 npm run e2e
