@@ -11,11 +11,13 @@ const mock: User[] = [
 
 describe('Angular Material Drag and Drop Test', () => {
   beforeEach(() => {
+    // mock HTTP GET
     cy.intercept(
       'https://jsonplaceholder.typicode.com/users',
       { method: 'GET'},
       mock
     )
+    // Visit the demo page
     cy.visit('http://localhost:4200/material-dnd-demo')
   });
 
@@ -29,11 +31,11 @@ describe('Angular Material Drag and Drop Test', () => {
     const targetIndex = 2;
     cy.get('.my-item').eq(targetIndex).as('target');
 
-    // Custom command (see cypress/support/command.ts)
     // simulate drag ( Lorenzo is Moved at the position of Silvia )
+    // NOTE: use the custom command (available in cypress/support/command.ts)
     cy.get('@source').dragTo('@target')
 
-    // test if the output has the new order
+    // test if the output list has the new order, element after element
     cy.get('.my-item').eq(0).contains('Lorenzo')
     cy.get('.my-item').eq(1).contains('Silvia')
     cy.get('.my-item').eq(2).contains('Fabio')
@@ -44,7 +46,7 @@ describe('Angular Material Drag and Drop Test', () => {
   /**
    * this is exactly the same test of the previous one
    * but there are no hard coded values
-   * and works with any array content and array length
+   * and works with any array content
    */
   it('should be able to drag and drop items (more flexible solution)', () => {
     // select the element to drag (the first one)
@@ -55,19 +57,20 @@ describe('Angular Material Drag and Drop Test', () => {
     const targetIndex = 2;
     cy.get('.my-item').eq(targetIndex).as('target');
 
-    // Custom command (see cypress/support/command.ts)
+    // Simulate Drag
     cy.get('@source').dragTo('@target')
 
-    // Simulate the final result of the array after dragging
-    // NOTE: useful to check if every item contains the right content after dragging
+    // Simulate the final result that should have the source array after dragging.
+    // NOTE: this is a custom function (see at the bottom of this file) that returns a new modified array
+    // that simulate the final result after dragging operations.
     const draggedArray: User[] = swapElements(mock, sourceIndex, targetIndex);
 
-    // we iterate on HTML and check if every item in the list
-    // contains the right content (got from draggedArray
+    // we iterate over all the items of the list (after dragging)
+    // and check if every item contains / matches the right content (got from draggedArray)
     cy
       .get('.my-item')
       .each((el, index) => {
-        // check if the first HTML element contains the new order
+        // check if the every element of the list contains the array item name
         cy
           .wrap(el)
           .contains(draggedArray[index].name)
