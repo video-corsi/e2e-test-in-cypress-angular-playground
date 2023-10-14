@@ -20,9 +20,16 @@ npm start
 npm run e2e
 ```
 
-### How to write a test
+### What you find in this repo:
 
-Update `AppComponent` and write your tests in `playground.cy.ts`
+* an application composed by two routes:
+  * `features/home`: a simple page with the text "Hello Angular"
+  * `features/material-dnd-demo`: a page that uses Angular Material CDK to create a list that support drag'n'drop
+
+* two cypress tests
+  * `cypress/e2e/home.cy.ts`: the E2E test for the hompage
+  * `cypress/e2e/material-dnd-demo.cy.ts`: the E2E test to test the drag'n'drop
+    * in the same folder you find also the instructions (`README_MATERIAL_DND_DEMO.md`) to replicate everything in your project 
 
 
 
